@@ -48,7 +48,7 @@ vi user-config.json
   "protocol": "origin",
   "protocol_param": "",
   "obfs": "tls1.2_ticket_auth",
-  "obfs_param": "",
+  "obfs_param": "${your domain}",
   "speed_limit_per_con": 0,
   "speed_limit_per_user": 0,
 
@@ -94,7 +94,18 @@ WantedBy=default.target
 systemctl daemon-reload
 ```
 
-检查你的ssr服务运行状态：
+最后，检查你的ssr服务运行状态：
 ```sh
 systemctl status shadowsocksr
+```
+
+如果返回如下所示的内容，就证明你的ssr服务运行起来了：
+```log
+shadowsocksr.service - Shadowsocks R Server Service
+   Loaded: loaded (/etc/systemd/system/shadowsocksr.service; disabled; vendor preset: enabled)
+   Active: active (running) since Sun 2019-10-20 14:15:48 UTC; 1 weeks 4 days ago
+ Main PID: 18165 (python3)
+    Tasks: 1 (limit: 1109)
+   CGroup: /system.slice/shadowsocksr.service
+           └─18165 /usr/bin/python3 server.py -c ../user-config.json
 ```

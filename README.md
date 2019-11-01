@@ -63,11 +63,11 @@
 ### 服务器配置导航
 1. ngnix 基本配置 (请敬期待)
 
-2. [caddy 基本配置](/caddy.md)
+2. [caddy 基本配置](/caddy.md) —— (反向代理服务)
 
 3. v2ray 基本配置 (请敬期待)
 
-4. [ssr 基本配置](/ssr.md)
+4. [ssr 基本配置](/ssr.md) —— (正向代理服务)
 
 ## License
 
