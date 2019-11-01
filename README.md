@@ -3,16 +3,16 @@
 在符合中华人民共和国法律的前提下，学会科学、正确、合理的上网，是作为一个合法的中国公民必须具备的基本素养！这本小册子的目的是为了让我们在某些弱网环境下，更方便，更快捷的获取到网络上的一些资源，但前提是一定要保证你获取的资源是合法的！
 
 ## 前期准备
-想要科学、正确、合理且合法的上网，前期的准备工作少不了。就算你真的嫌麻烦，那你也需要加入某个相对稳定的 [vpn](https://zh.wikipedia.org/wiki/%E8%99%9B%E6%93%AC%E7%A7%81%E4%BA%BA%E7%B6%B2%E8%B7%AF) 节点。不过，我个人更看重的是举一反三的能力，**授人渔**才是这本小册子的真实目的。
+想要科学、正确、合理且合法的上网，前期的准备工作少不了。就算你真的嫌麻烦，那你也需要加入某个相对稳定的 [vpn](https://zh.wikipedia.org/wiki/%E8%99%9B%E6%93%AC%E7%A7%81%E4%BA%BA%E7%B6%B2%E8%B7%AF) 节点。不过，我个人更看重的是举一反三的能力，**授人渔** 才是这本小册子的真实目的。
 
 接下来，我们讨论的是如何自己动手搭建一套属于自己的 [vps](https://zh.wikipedia.org/wiki/%E8%99%9A%E6%8B%9F%E4%B8%93%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8)，别看它和 *vpn* 只差一个字母，但技术含量和难以程度都如同云泥！(我身边就有不少程序猿依然只会使用别人提供的vpn，想想都替他们感到那啥……)
 
 想要有一个自己的 *vps*，你至少需要以下几个条件👇：
-1. 一台属于自己的云服务器，别管配置，哪怕 *0.5G内存 + 1核CPU* 也行；
+1. 一台属于自己的 **云服务器**，别管配置，哪怕 *0.5G内存 + 1核CPU* 也行；
 
-2. 一个能在你的 *云服务器* 上跑起来的 *服务*；(关于服务器和服务的区别，后面有说明)
+2. 一个能在你的 *云服务器* 上跑起来的 **服务**；(关于服务器和服务的区别，后面有说明)
 
-3. 一个属于自己的域名(可选，但最好有)，可以去 [腾讯云](https://cloud.tencent.com/act/domainsales) 或者 [万网](https://www.hichina.com/)(阿里云旗下) 购买；
+3. 一个属于自己的 **域名**(可选，但最好有)，可以去 [腾讯云](https://cloud.tencent.com/act/domainsales) 或者 [万网](https://www.hichina.com/)(阿里云旗下) 购买；
 
 4. 最重要的一点：相信自己一定能行的**信心**。
 
@@ -52,13 +52,13 @@
 **Tips**: 编写服务的脚本语言有很多，比如 *PHP*、*Java*、*Javascript*、*go*、*python*……
 
 我们在这里重点关注以下几个服务的安装和配置：
-1. [ngnix](https://nginx.org/en/docs/)
+1. [ngnix - 官网](https://nginx.org/en/docs/)
 
-2. [caddy](https://caddyserver.com/v1/docs)
+2. [caddy - 官网](https://caddyserver.com/v1/docs)
 
-3. [v2ray](https://www.v2ray.com/)
+3. [v2ray - 官网](https://www.v2ray.com/)
 
-4. [ssr](https://github.com/shadowsocksrr/shadowsocksr)
+4. [ssr - github](https://github.com/shadowsocksrr/shadowsocksr)
 
 ### 服务器配置导航
 1. ngnix 基本配置 (请敬期待)
