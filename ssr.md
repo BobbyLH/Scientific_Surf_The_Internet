@@ -21,7 +21,7 @@ git clone https://github.com/shadowsocksrr/shadowsocksr.git
 
 然后进入这个项目并运行一个shell脚本：
 ```sh
-cd shadowsockssr && bash initcfg.sh
+cd shadowsocksr && bash initcfg.sh
 ```
 
 而后，你还得安装python3：
@@ -30,7 +30,7 @@ apt-get install python3
 ```
 最后，用python3将ssr服务跑起来：
 ```sh
-python3 server.py
+cd shadowsocks && python3 server.py
 ```
 
 ## 配置你的SSR
