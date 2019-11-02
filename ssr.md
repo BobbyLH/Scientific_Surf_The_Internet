@@ -71,12 +71,12 @@ vi user-config.json
 ## 配置你的shadowsocksr.service文件
 创建一个 *shadowsocksr.service* 文件：
 ```sh
-touch ~/.config/systemd/shadowsocksr.service
+touch /etc/systemd/system/shadowsocksr.service
 ```
 
 然后编辑它：
 ```sh
-vi ~/.config/systemd/shadowsocksr.service
+vi /etc/systemd/system/shadowsocksr.service
 ```
 
 shadowsocksr.service 文件配置如下：
