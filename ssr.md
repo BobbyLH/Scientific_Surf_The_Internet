@@ -34,7 +34,7 @@ cd shadowsocks && python3 server.py
 ```
 
 ## 配置你的SSR
-在你的shadowsocksrr文件目录里面，编辑你的user-config.json文件：
+在你的 *shadowsocksr* 文件目录里面，编辑你的 `user-config.json` 文件：
 ```sh
 vi user-config.json
 ```
