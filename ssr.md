@@ -1,5 +1,5 @@
 # SSR
-**Note**：该服务的所有指令都以 `ubuntu 18.04` 环境为准，其他linux的安装指令可以自行搜索。
+**Note**：该服务的所有指令都以 `ubuntu 18.04` 环境为准，其他linux的包安装指令可以自行搜索(比如CentOs 用的是 `yum install` …)。
 
 **Note**：所有以 `${}` 包裹起来的内容，都需要你自行替换成你自己的相应配置。
 
@@ -12,6 +12,11 @@ apt-get install git
 接下去，将ssr的git项目clone到本地：
 ```sh
 git clone git@github.com:shadowsocksrr/shadowsocksr.git
+```
+
+或者使用https的方式进行clone：
+```sh
+git clone https://github.com/shadowsocksrr/shadowsocksr.git
 ```
 
 然后进入这个项目并运行一个shell脚本：
