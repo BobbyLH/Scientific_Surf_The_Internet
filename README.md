@@ -61,13 +61,13 @@
 4. [ssr - github](https://github.com/shadowsocksrr/shadowsocksr)
 
 ### 服务器配置导航
-1. ngnix 基本配置 (请敬期待)
+1. ngnix 基本配置 (请敬期待) —— (反向代理服务，同时也是web服务)
 
-2. [caddy 基本配置](/caddy.md) —— (反向代理服务)
+2. [caddy 基本配置](/caddy.md) —— (web服务)
 
-3. v2ray 基本配置 (请敬期待)
+3. [v2ray 基本配置](/v2ray.md) —— (正向代理服务)
 
-4. [ssr 基本配置](/ssr.md) —— (正向代理服务)
+4. [ssr 基本配置](/ssr.md) —— (兼具正、反向代理服务)
 
 ## License
 
