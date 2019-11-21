@@ -76,6 +76,6 @@
 
 ## License
 
-Copyright (c) 2019-2019 [Bobby.li](https://github.com/BobbyLH)
+Copyright (c) 2019 [Bobby.li](https://github.com/BobbyLH)
 
 Released under the MIT License
