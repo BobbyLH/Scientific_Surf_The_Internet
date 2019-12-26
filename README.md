@@ -17,12 +17,20 @@
 4. 最重要的一点：相信自己一定能行的**信心**。
 
 ## 云服务器选择
-推荐几个比较常见的云服务供应商，以作参考
+推荐几个比较常见的云服务供应商，以作参考。
+
+针对低端用户，笔者尝试过国内的阿里云、百度云、腾讯云、新浪云，对于服务稳定性而言，比较推荐[腾讯云](https://cloud.tencent.com)，如果考虑价格等其他因素，其实各大厂商对于新用户都有优惠政策，可根据自己的实际情况选择。
+
+对于境外的运营商，考虑到支付的便捷性和优惠力度，更为推荐[vultr](https://www.vultr.com/)；相关优惠，可以在搜索引擎中输入 `vultr新用户优惠` 关键字进行搜索。
 
 ### 国内的云服务器供应商
 1. [腾讯云](https://cloud.tencent.com)
 
 2. [阿里云](https://cn.aliyun.com)
+
+3. [百度云](https://cloud.baidu.com/)
+
+4. [新浪云](https://www.sinacloud.com/)
 
 ### 国外的云服务器供应商
 1. [vultr](https://www.vultr.com/)
@@ -30,6 +38,8 @@
 2. [搬瓦工](https://bandwagonhost.com/)
 
 3. [AWS](https://aws.amazon.com/cn/)
+
+4. [Azure](https://azure.microsoft.com/)
 
 
 ### 正/反 向代理服务器
@@ -61,18 +71,37 @@
 4. [ssr - github](https://github.com/shadowsocksrr/shadowsocksr)
 
 ### 亲尝有效的服务配置
-1. **ssr + tls + caddy**：ssr 做反向代理，转发普通请求到 caddy 服务(自带tls)，对于其他请求，则进行正向代理；
+1. **ssr + caddy + tls**：ssr 做反向代理，转发普通请求到 caddy 服务(自带tls)，对于其他请求，则进行正向代理；
 
-2. **nginx + tls + v2ray**：nginx 做反向代理，将自定义的某个路由转发到 v2ray 服务进行正向代理，需要手动配置tls。
+2. **v2ray + nginx + tls**：nginx 做反向代理，将自定义的某个路由转发到 v2ray 服务进行正向代理，需要手动配置tls。
 
 ### 服务器配置导航
-1. nginx 基本配置 (请敬期待) —— (反向代理服务，同时也是web服务)
+1. ssr + caddy + tls 模式
+    * [ssr 基本配置](/ssr.md) —— (兼具正、反向代理服务，搭配caddy)
 
-2. [caddy 基本配置](/caddy.md) —— (web服务)
+    * [caddy 基本配置](/caddy.md) —— (web服务，搭配ssr)
 
-3. [v2ray 基本配置](/v2ray.md) —— (正向代理服务)
+2. v2ray + nginx + tls 模式
+    * [v2ray 基本配置](/v2ray.md) —— (正向代理服务，搭配nginx)
 
-4. [ssr 基本配置](/ssr.md) —— (兼具正、反向代理服务)
+    * [nginx 基本配置](/nginx.md) —— (反向代理服务，同时也是web服务，搭配v2ray)
+
+
+
+## 路由器篇
+服务都搭建好了，但是每台设备都需要安装相应的客户端才能达到实际想要的效果，这很不爽。解决的办法也很简单 —— 用路由器作为入口终端，代理所有的请求，在这个局域网下，所有的设备自然而然就达到了预期的效果。
+
+市面上的路由器很多很杂，中高端里较为推荐 **华硕** 和 **网件**，质量稳定，功能强大(因为梅林)。稍次一些就比较多了，比如 Tenda、TPLink、水星、小米路由器、360路由器……，虽便宜，也能胜任工作。
+
+笔者自家使用的是两台ASUS(华硕)组成的Aimesh，一台是AC68U，一台是AC66U-B1，价格相差无几，稳定性、功能、信号强度都没太多区别，关键是它们都采用了 博通方案，刷梅林固件几乎是傻瓜式，相关的教程也很多，就不再赘述。
+
+贴两个地址：
+
+[梅林固件下载地址](http://firmware.koolshare.cn/)
+
+[KX上网工具地址](https://github.com/hq450/fancyss)
+
+### openwrt刷固(敬请期待)
 
 ## License
 

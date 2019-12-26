@@ -1,5 +1,5 @@
 # v2ray 服务
-**Note**：该服务的所有指令都以 `ubuntu 18.04` 环境为准，其他linux的包安装指令可以自行搜索(比如CentOs 用的是 `yum install` …)。
+**Note**：该服务的所有指令都以 `ubuntu 18.04` 环境为准，其他linux版本的包安装指令可以自行搜索(比如CentOs 用的是 `yum install` …)。
 
 **Note**：所有以 `${}` 包裹起来的内容，都需要你自行替换成你自己的相应配置。
 
@@ -59,7 +59,7 @@ vi /etc/v2ray/config.json
     "streamSettings": {
       "network": "ws",
       "wsSettings": {
-      "path": "${/your_proxy_path}"
+      "path": "/${your_proxy_path}"
       }
     }
   },
@@ -113,7 +113,7 @@ vi /etc/v2ray/config.json
       "network": "ws",
       "security": "tls",
       "wsSettings": {
-        "path": "${/your_proxy_path}"
+        "path": "/${your_proxy_path}"
       }
     }
   }

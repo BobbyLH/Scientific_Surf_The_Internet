@@ -1,6 +1,6 @@
 # caddy 服务
 
-**Note**：该服务的所有指令都以 `ubuntu 18.04` 环境为准，其他linux的包安装指令可以自行搜索(比如CentOs 用的是 `yum install` …)。
+**Note**：该服务的所有指令都以 `ubuntu 18.04` 环境为准，其他linux版本的包安装指令可以自行搜索(比如CentOs 用的是 `yum install` …)。
 
 **Note**：所有以 `${}` 包裹起来的内容，都需要你自行替换成你自己的相应配置。
 
