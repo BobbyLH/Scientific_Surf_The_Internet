@@ -99,8 +99,10 @@ WantedBy=default.target
 systemctl daemon-reload
 ```
 
-最后，检查你的ssr服务运行状态：
+最后，重启ssr服务并检查你的ssr服务运行状态：
 ```sh
+systemctl restart shadowsocksr
+
 systemctl status shadowsocksr
 ```
 

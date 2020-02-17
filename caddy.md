@@ -87,7 +87,7 @@ curl -s https://raw.githubusercontent.com/mholt/caddy/master/dist/init/linux-sys
 systemctl daemon-reload
 ```
 
-而后将caddy设置为开机自启动，并查看caddy服务的状态：
+而后将caddy设置为开机自启动，重启caddy服务并查看caddy服务的状态：
 ```sh
 systemctl enable caddy
 
