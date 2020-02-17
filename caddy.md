@@ -17,7 +17,8 @@ which caddy
 
 如果返回了caddy命令相应的位置信息，那就证明安装成功了。
 
-## 为 cadddy 建一个保存 _ssl证书_ 的文件夹
+## 配置caddy
+### 为 cadddy 建一个保存 _ssl证书_ 的文件夹
 ```sh
 mkdir -p /etc/ssl/caddy
 
@@ -26,7 +27,7 @@ chown -R www-data:root /etc/ssl/caddy
 chmod 0770 /etc/ssl/caddy
 ```
 
-## 写出你自己的第一个 _Hello World_ 服务
+### 写出你自己的第一个 _Hello World_ 服务
 ```sh
 mkdir -p /usr/local/caddy/www/ssr
 
@@ -58,7 +59,7 @@ vi index.html
 </html>
 ```
 
-## 配置Caddyfile
+### 配置Caddyfile
 首先，创建一个 `Caddyfile`：
 ```sh
 mkdir -p /etc/caddy/ && touch Caddyfile
@@ -90,7 +91,13 @@ systemctl daemon-reload
 ```sh
 systemctl enable caddy
 
+systemctl restart caddy
+
 systemctl status caddy
 ```
+
+## 检查你的网站
+打开浏览器，输入 `https://{your domain}:{your port}`，{your domain} 和 {your port}与上述 **Caddyfile** 的一致
+
 
 **Tips**：不会用 `vi` 文本编译器？已经有很多人写了相关的博客文章了，比如[简书](https://www.jianshu.com/p/bcbe916f97e1)上的，或者更详细介绍了一些常用的Linux指令的[微信公众号](https://mp.weixin.qq.com/s/f2vy2pIpp_PZH-D0g9fDkA)的文章。
