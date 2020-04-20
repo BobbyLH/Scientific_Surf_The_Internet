@@ -86,7 +86,8 @@
 
     * [nginx 基本配置](/nginx.md) —— (反向代理服务，同时也是web服务，搭配v2ray)
 
-3. 如果你购买的是国内的云服务，一般来说都有安全限制，此时你需要手动设置你的 [安全组规则](https://baike.baidu.com/item/%E5%AE%89%E5%85%A8%E7%BB%84)，开放对应端口(包括TCP和UDP协议)出入站的权限，而后将规则绑定到云服务的实例上。
+### 防火墙之安全组规则
+如果你购买的是国内的云服务，一般来说都有安全限制，此时你需要手动设置你的 [安全组规则](https://baike.baidu.com/item/%E5%AE%89%E5%85%A8%E7%BB%84)，开放对应端口(包括TCP和UDP协议)出入站的权限，而后将规则绑定到云服务的实例上。
     - [腾讯云安全组规则](https://cloud.tencent.com/document/product/213/12452)
 
     - [阿里云安全组规则](https://help.aliyun.com/document_detail/25471.html)
