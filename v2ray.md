@@ -58,8 +58,9 @@ vi /etc/v2ray/config.json
     },
     "streamSettings": {
       "network": "ws",
+      "security": "auto",
       "wsSettings": {
-      "path": "/${your_proxy_path}"
+        "path": "/${your_proxy_path}"
       }
     }
   },
