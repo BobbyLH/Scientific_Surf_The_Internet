@@ -63,7 +63,7 @@ vi ~/shadowsocksr/user-config.json
   "udp_timeout": 60,
   "dns_ipv6": false,
   "connect_verbose_info": 0,
-  "redirect": ["*:443#127.0.0.1:${your_port ssr启动的端口号}"],
+  "redirect": ["*:443#127.0.0.1:${your_candy_port candy服务启动的端口号}"],
   "fast_open": false
 }
 ```
