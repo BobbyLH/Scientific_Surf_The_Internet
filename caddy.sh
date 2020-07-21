@@ -111,7 +111,8 @@ install_caddy()
 	echo "Downloading Caddy for ${caddy_os}/${caddy_arch}${caddy_arm} (${caddy_license} license)..."
 	caddy_file="caddy_${caddy_os}_${caddy_arch}${caddy_arm}_custom${caddy_dl_ext}"
 	qs="license=${caddy_license}&plugins=${caddy_plugins}&access_codes=${caddy_access_codes}&telemetry=${CADDY_TELEMETRY}"
-	caddy_url="https://caddyserver.com/download/${caddy_os}/${caddy_arch}${caddy_arm}?${qs}"
+	# caddy_url="https://caddyserver.com/download/${caddy_os}/${caddy_arch}${caddy_arm}?${qs}"
+	caddy_url="https://caddyserver.com/download?os=${caddy_os}&arch=${caddy_arch}${caddy_arm}?${qs}"
 	caddy_asc="https://caddyserver.com/download/${caddy_os}/${caddy_arch}${caddy_arm}/signature?${qs}"
 
 	type -p gpg >/dev/null 2>&1 && gpg=1 || gpg=0
