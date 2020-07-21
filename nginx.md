@@ -32,8 +32,8 @@ server {
 	ssl_certificate_key   /etc/v2ray/v2ray.key;
 	ssl_protocols         TLSv1 TLSv1.1 TLSv1.2;
 	ssl_ciphers           HIGH:!aNULL:!MD5;
-	server_name           ${your domain};
-	location /${your_proxy_path} {
+	server_name           ${your_domain 你的域名};
+	location /${your_proxy_path 转发的路径} {
 		proxy_redirect off;
 		proxy_pass http://127.0.0.1:10000;
 		proxy_http_version 1.1;

@@ -72,10 +72,10 @@ vi /etc/caddy/Caddyfile
 
 将下述配置插入你的 *Caddyfile*
 ```caddyfile
-https://${your domain}:${your port} {
+https://${your_domain 你的域名}:${your_port 服务的端口号} {
  root /usr/local/caddy/www/ssr
  timeouts none
- tls ${your email address}
+ tls ${your_email_address 你的邮箱}
  gzip
 }
 ```

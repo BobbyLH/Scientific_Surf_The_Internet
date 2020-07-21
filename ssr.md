@@ -48,12 +48,12 @@ vi ~/shadowsocksr/user-config.json
   "local_address": "127.0.0.1",
   "local_port": 1080,
 
-  "password": "${your password}",
+  "password": "${your_password 连接ssr的密码}",
   "method": "aes-256-cfb",
   "protocol": "origin",
   "protocol_param": "",
   "obfs": "tls1.2_ticket_auth",
-  "obfs_param": "${your domain}",
+  "obfs_param": "${your_domain 你的域名}",
   "speed_limit_per_con": 0,
   "speed_limit_per_user": 0,
 
@@ -63,7 +63,7 @@ vi ~/shadowsocksr/user-config.json
   "udp_timeout": 60,
   "dns_ipv6": false,
   "connect_verbose_info": 0,
-  "redirect": ["*:443#127.0.0.1:${your port}"],
+  "redirect": ["*:443#127.0.0.1:${your_port ssr启动的端口号}"],
   "fast_open": false
 }
 ```

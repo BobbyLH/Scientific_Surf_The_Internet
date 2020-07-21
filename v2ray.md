@@ -11,7 +11,7 @@ date -R
 
 如果服务器时间不准，可以：
 ```sh
-date --set="${2019-11-12 23:32:16}"
+date --set="${2019-11-12 23:32:16 以你此刻的时间为准}"
 ```
 
 ## 安装V2Ray
@@ -60,7 +60,7 @@ vi /etc/v2ray/config.json
       "network": "ws",
       "security": "auto",
       "wsSettings": {
-        "path": "/${your_proxy_path}"
+        "path": "/${your_proxy_path 转发的路径}"
       }
     }
   },
@@ -77,8 +77,8 @@ vi /etc/v2ray/config.json
 ```json
 {
   "log": {
-    "access": "${your_reserve_access_log_path}/access.log",
-    "error": "${your_reserve_error_log_path}/error.log",
+    "access": "${your_reserve_access_log_path 保存日志的文件夹}/access.log",
+    "error": "${your_reserve_error_log_path 保存日志的文件夹}/error.log",
     "loglevel": "warning"
   },
   "inbound": {
@@ -99,11 +99,11 @@ vi /etc/v2ray/config.json
     "settings": {
       "vnext": [
         {
-          "address": "${your_domain}",
+          "address": "${your_domain 你的域名}",
           "port": 443,
           "users": [
             {
-              "id": "${UUID}",
+              "id": "${UUID 你的UUID，即密码}",
               "alterId": 64
             }
           ]
@@ -114,7 +114,7 @@ vi /etc/v2ray/config.json
       "network": "ws",
       "security": "tls",
       "wsSettings": {
-        "path": "/${your_proxy_path}"
+        "path": "/${your_proxy_path 转发的路径}"
       }
     }
   }
@@ -129,5 +129,5 @@ curl  https://get.acme.sh | sh
 
 ### 手动更新ECC证书
 ```sh
-sudo ~/.acme.sh/acme.sh --renew -d ${yourdomain} --force --ecc
+sudo ~/.acme.sh/acme.sh --renew -d ${your_domain 你的域名} --force --ecc
 ```
