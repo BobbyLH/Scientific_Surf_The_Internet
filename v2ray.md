@@ -44,7 +44,7 @@ vi /usr/local/etc/v2ray/config.json
     "loglevel": "warning"
   },
   "inbound": {
-    "port": 10000,
+    "port": 10001,
     "listen":"127.0.0.1",
     "protocol": "vmess",
     "settings": {
@@ -135,6 +135,11 @@ apt install socat && curl  https://get.acme.sh | sh
 ### 生成证书
 ```sh
 ~/.acme.sh/acme.sh --issue -d ${your_domain 你的域名} --standalone -k ec-256
+```
+
+### 将证书和私钥安装到v2ray中
+```sh
+~/.acme.sh/acme.sh --installcert -d ${your_domain 你的域名} --fullchainpath /usr/local/etc/v2ray/v2ray.crt --keypath /usr/local/etc/v2ray/v2ray.key --ecc
 ```
 
 ### 证书生成后，启动nginx

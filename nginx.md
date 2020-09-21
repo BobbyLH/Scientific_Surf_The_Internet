@@ -27,15 +27,14 @@ vi /etc/nginx/nginx.conf
 ```conf
 server {
 	listen  443 ssl;
-	ssl on;
-	ssl_certificate       ${your_cer 你的证书};
-	ssl_certificate_key   ${your_key 你的私钥};
+	ssl_certificate       /usr/local/etc/v2ray/v2ray.crt;
+	ssl_certificate_key   /usr/local/etc/v2ray/v2ray.key;
 	ssl_protocols         TLSv1 TLSv1.1 TLSv1.2;
 	ssl_ciphers           HIGH:!aNULL:!MD5;
 	server_name           ${your_domain 你的域名};
 	location /${your_proxy_path 转发的路径} {
 		proxy_redirect off;
-		proxy_pass http://127.0.0.1:10000;
+		proxy_pass http://127.0.0.1:10001;
 		proxy_http_version 1.1;
 		proxy_set_header Upgrade "WebSocket";
 		proxy_set_header Connection "Upgrade";
@@ -50,10 +49,6 @@ server {
 ```sh
 nginx -c /etc/nginx/nginx.conf
 ```
-
-### 私钥和证书
-[your_cer 你的证书]()
-[your_key 你的私钥]()
 
 ### 常用nginx命令
   - 重启nginx
