@@ -122,12 +122,27 @@ vi /etc/v2ray/config.json
 ```
 
 ## TLS
-### 安装acme.sh
+### 暂停nginx释放80端口
 ```sh
-curl  https://get.acme.sh | sh
+nginx -s stop
 ```
 
-### 手动更新ECC证书
+### 安装acme.sh
+```sh
+apt install socat && curl  https://get.acme.sh | sh
+```
+
+### 生成证书
+```sh
+~/.acme.sh/acme.sh --issue -d ${your_domain 你的域名} --standalone -k ec-256
+```
+
+### 证书生成后，启动nginx
+```sh
+nginx
+```
+
+### 3个月后，手动更新ECC证书
 ```sh
 sudo ~/.acme.sh/acme.sh --renew -d ${your_domain 你的域名} --force --ecc
 ```
