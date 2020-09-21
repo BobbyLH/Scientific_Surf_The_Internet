@@ -28,8 +28,8 @@ vi /etc/nginx/nginx.conf
 server {
 	listen  443 ssl;
 	ssl on;
-	ssl_certificate       /etc/v2ray/v2ray.crt;
-	ssl_certificate_key   /etc/v2ray/v2ray.key;
+	ssl_certificate       ${your_cer 你的证书};
+	ssl_certificate_key   ${your_key 你的私钥};
 	ssl_protocols         TLSv1 TLSv1.1 TLSv1.2;
 	ssl_ciphers           HIGH:!aNULL:!MD5;
 	server_name           ${your_domain 你的域名};
@@ -50,6 +50,10 @@ server {
 ```sh
 nginx -c /etc/nginx/nginx.conf
 ```
+
+### 私钥和证书
+[your_cer 你的证书]()
+[your_key 你的私钥]()
 
 ### 常用nginx命令
   - 重启nginx

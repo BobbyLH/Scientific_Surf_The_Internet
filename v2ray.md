@@ -17,22 +17,22 @@ date --set="${2019-11-12 23:32:16 以你此刻的时间为准}"
 ## 安装V2Ray
 ### 下载脚本
 ```sh
-wget https://install.direct/go.sh
+curl -O https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh
 ```
 
 ### 执行安装命令
 ```sh
-bash go.sh
+bash install-release.sh
 ```
 
 ### 启动v2ray服务
 ```sh
-systemctl start v2ray
+systemctl enable v2ray && systemctl start v2ray
 ```
 
 ### 配置 server 端的 v2ray config
 ```sh
-vi /etc/v2ray/config.json
+vi /usr/local/etc/v2ray/config.json
 ```
 
 输入下面的内容：
@@ -146,3 +146,9 @@ nginx
 ```sh
 sudo ~/.acme.sh/acme.sh --renew -d ${your_domain 你的域名} --force --ecc
 ```
+
+### 证书和私钥的位置
+一般来讲，通过上述生成后的证书和私钥，都存放于 `~/.acme.sh/${your_domain}_ecc/` 的目录下：
+  - key 的 位置 `~/.acme.sh/${your_domain}_ecc//${your_domain}.key`
+
+  - cer 的 位置 `~/.acme.sh/${your_domain}_ecc//${your_domain}.cer`
