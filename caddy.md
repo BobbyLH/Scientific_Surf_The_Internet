@@ -82,7 +82,7 @@ https://${your_domain 你的域名}:${your_port 服务的端口号} {
 
 然后下一份别人写好的 *caddy.server* 到你的机器上，并重启daemon：
 ```sh
-curl -s https://raw.githubusercontent.com/mholt/caddy/master/dist/init/linux-systemd/caddy.service -o /etc/systemd/system/caddy.service
+curl -s https://raw.githubusercontent.com/caddyserver/caddy/v1/dist/init/linux-systemd/caddy.service -o /etc/systemd/system/caddy.service
 
 systemctl daemon-reload
 ```

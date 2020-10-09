@@ -71,6 +71,12 @@ vi /usr/local/etc/v2ray/config.json
 }
 ```
 
+### 重启服务器的 v2ray
+
+```sh
+systemctl restart v2ray
+```
+
 ### 配置 client 端的 v2ray config
 在你客户端运行的v2ray程序中，添加某个json文件，而后输入下面的内容：
 
