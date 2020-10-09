@@ -140,7 +140,7 @@ Breed 就好像我们电脑开机时启动的 UEFI、BIOS 等基本系统一样�
 
 以 新路由3 为例，在 MacOS 操作系统下，刷入的步骤很简单：
 
-- [下载 Breed 附件](https://github.com/BobbyLH/Scientific_Surf_The_Internet/raw/master/assets/newifi-d2-jail-break.ko")
+- [下载 Breed 附件](https://github.com/BobbyLH/Scientific_Surf_The_Internet/raw/master/assets/newifi-d2-jail-break.ko)
 
 - 确保路由器正常连接到网络，并连接到路由器；
 
