@@ -185,7 +185,8 @@ sudo su
 ```sh
 wget --no-check-certificate -O /tmp/install.sh https://github.com/BobbyLH/Scientific_Surf_The_Internet/raw/master/install.sh &&\
 chmod 755 /tmp/install.sh &&\
-/tmp/install.sh
+/tmp/install.sh &&\
+rm /tmp/install.sh
 ```
 
 ## 最后的话
