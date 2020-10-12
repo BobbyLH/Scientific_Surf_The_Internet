@@ -126,6 +126,7 @@ curl  https://get.acme.sh | sh &&\
 ~/.acme.sh/acme.sh --issue -d $domain --standalone -k ec-256 &&\
 ~/.acme.sh/acme.sh --installcert -d $domain --fullchainpath /usr/local/etc/v2ray/v2ray.crt --keypath /usr/local/etc/v2ray/v2ray.key --ecc &&\
 apt-get install -y nginx &&\
+nginx -s stop &&\
 sed -i 'd' /etc/nginx/nginx.conf &&\
 echo "user www-data;
 worker_processes auto;
@@ -222,6 +223,7 @@ nginx -c /etc/nginx/nginx.conf &&\
 wget --no-check-certificate -O /opt/bbr.sh https://github.com/teddysun/across/raw/master/bbr.sh &&\
 chmod 755 /opt/bbr.sh &&\
 /opt/bbr.sh &&\
+apt-get install -y git &&\
 git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh &&\
 cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc &&\
 chsh -s /bin/zsh &&\
