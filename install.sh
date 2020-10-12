@@ -122,6 +122,7 @@ echo "{
 }" > /usr/local/etc/v2ray/config.json &&\
 systemctl restart v2ray &&\
 apt-get install -y socat &&\
+apt-get install -y curl &&\
 curl  https://get.acme.sh &&\
 ~/.acme.sh/acme.sh --issue -d $domain --standalone -k ec-256 &&\
 ~/.acme.sh/acme.sh --installcert -d $domain --fullchainpath /usr/local/etc/v2ray/v2ray.crt --keypath /usr/local/etc/v2ray/v2ray.key --ecc &&\
