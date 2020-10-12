@@ -224,6 +224,7 @@ wget --no-check-certificate -O /opt/bbr.sh https://github.com/teddysun/across/ra
 chmod 755 /opt/bbr.sh &&\
 /opt/bbr.sh &&\
 apt-get install -y git &&\
+apt-get install -y zsh &&\
 git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh &&\
 cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc &&\
 chsh -s /bin/zsh &&\
