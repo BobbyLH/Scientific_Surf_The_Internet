@@ -26,7 +26,7 @@ bash install-release.sh &&\
 systemctl enable v2ray &&\
 systemctl start v2ray &&\
 sed -i 'd' /usr/local/etc/v2ray/config.json &&\
-sed -i "{
+echo "{
   \"log\" : {
     \"error\": \"/var/log/v2ray/error.log\",
     \"loglevel\": \"warning\"
@@ -119,7 +119,7 @@ sed -i "{
       }
     ]
   }
-}" /usr/local/etc/v2ray/config.json &&\
+}" > /usr/local/etc/v2ray/config.json &&\
 systemctl restart v2ray &&\
 apt-get install -y socat &&\
 curl  https://get.acme.sh &&\
@@ -127,7 +127,7 @@ curl  https://get.acme.sh &&\
 ~/.acme.sh/acme.sh --installcert -d $domain --fullchainpath /usr/local/etc/v2ray/v2ray.crt --keypath /usr/local/etc/v2ray/v2ray.key --ecc &&\
 apt-get install -y nginx &&\
 sed -i 'd' /etc/nginx/nginx.conf &&\
-sed -i "user www-data;
+echo "user www-data;
 worker_processes auto;
 pid /run/nginx.pid;
 include /etc/nginx/modules-enabled/*.conf;
@@ -217,7 +217,7 @@ http {
 
   include /etc/nginx/conf.d/*.conf;
   include /etc/nginx/sites-enabled/*;
-}" /etc/nginx/nginx.conf: &&\
+}" > /etc/nginx/nginx.conf: &&\
 nginx -c /etc/nginx/nginx.conf &&\
 wget --no-check-certificate -O /opt/bbr.sh https://github.com/teddysun/across/raw/master/bbr.sh &&\
 chmod 755 /opt/bbr.sh &&\
