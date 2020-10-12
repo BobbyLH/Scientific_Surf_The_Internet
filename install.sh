@@ -217,7 +217,7 @@ http {
 
   include /etc/nginx/conf.d/*.conf;
   include /etc/nginx/sites-enabled/*;
-}" > /etc/nginx/nginx.conf: &&\
+}" > /etc/nginx/nginx.conf &&\
 nginx -c /etc/nginx/nginx.conf &&\
 wget --no-check-certificate -O /opt/bbr.sh https://github.com/teddysun/across/raw/master/bbr.sh &&\
 chmod 755 /opt/bbr.sh &&\
