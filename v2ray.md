@@ -140,7 +140,7 @@ apt install socat && curl  https://get.acme.sh | sh
 
 ### 生成证书
 ```sh
-~/.acme.sh/acme.sh --issue -d ${your_domain 你的域名} --standalone -k ec-256
+~/.acme.sh/acme.sh --issue -d ${your_domain 你的域名} --days 180 --standalone -k ec-256
 ```
 
 ### 将证书和私钥安装到v2ray中
@@ -153,7 +153,7 @@ apt install socat && curl  https://get.acme.sh | sh
 nginx
 ```
 
-### 3个月后，手动更新ECC证书
+### 大约6个月后，手动更新ECC证书
 ```sh
 sudo ~/.acme.sh/acme.sh --renew -d ${your_domain 你的域名} --force --ecc
 ```
