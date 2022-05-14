@@ -64,6 +64,8 @@
 
 5. [华为云](https://www.huaweicloud.com/)
 
+6. [UCloud](https://www.ucloud.cn/)
+
 ### 国外的云服务器供应商
 1. [vultr](https://www.vultr.com/)
 
@@ -250,108 +252,113 @@ Breed 就好像我们电脑开机时启动的 UEFI、BIOS 等基本系统一样�
 ## 彩蛋 Netflix 解锁非自制剧
 自从2021年前后，Netflix加大了封锁非原生住宅ip的措施，大部分机房的vps，只能用来看自制剧了……
 
-这并没有什么优劣对错，但对于肉身尚在墙内，而内心向往着自由世界的我们来说，要是连《Breaking Bad》或者《Better call Saul》都看不了，那算个屁的自由！
+这并没有大不了，但对于肉身尚在墙内，而内心向往着自由世界的我们来说，要是连[《Breaking Bad》](https://en.wikipedia.org/wiki/Breaking_Bad)或者[《Better call Saul》](https://en.wikipedia.org/wiki/Better_Call_Saul)都看不了，那算个屁的自由！
 
 多花点时间和子弹，也不是不能搞定，但显然在 Cloudflare 推出了 [warp](https://1.1.1.1/) 之后，事情突然变得简单起来。
 
-如果你已经按照本文提供 v2ray + nginx 的方法，搭建好了一台网速还不错的 vps(推荐腾讯云香港轻量入门级)，那剩下的操作应该水到渠成：
+如果你已经按照本文提供 [v2ray + nginx](https://github.com/BobbyLH/Scientific_Surf_The_Internet#%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE%E5%AF%BC%E8%88%AA) 的方法，搭建好了一台网速还不错的 vps(推荐腾讯云香港轻量入门级)，那剩下的操作应该水到渠成：
 
 1. 找一台用 warp 还能刷出看非自制剧的 vps，别问我哪里能有，这个会随时间变化而变化，但关键是地域，亚太地区就别想了，重灾区
 
-2. 登入你的香港小鸡，`vi /usr/local/etc/v2ray/config.json`
+2. 登入你的高速小鸡，比如腾讯云香港轻量
+  - `vi /usr/local/etc/v2ray/config.json`
 
-	- 在 `outbounds` 添加：
-	```json
-    {
-      "tag": "media-unlock",
-      "protocol": "vmess",
-      "settings": {
-        "vnext": [
-          {
-            "address": "your_unlock_address",
-            "port": "your_unlock_port",
-            "users": [
-              {
-                "id": "your_id",
-                "alterId": 64
-              }
-            ]
+  - 在 `outbounds` 添加：
+    ```json
+      {
+        "tag": "media-unlock",
+        "protocol": "vmess",
+        "settings": {
+          "vnext": [
+            {
+              "address": "your_unlock_address",
+              "port": "your_unlock_port",
+              "users": [
+                {
+                  "id": "your_id",
+                  "alterId": 64
+                }
+              ]
+            }
+          ]
+        },
+        "streamSettings": {
+          "network": "mkcp",
+          "kcpSettings": {
+            "uplinkCapacity": 5,
+            "downlinkCapacity": 100,
+            "congestion": true,
+            "header": {
+              "type": "none"
+            }
           }
-        ]
-      },
-      "streamSettings": {
-        "network": "mkcp",
-        "kcpSettings": {
-          "uplinkCapacity": 5,
-          "downlinkCapacity": 100,
-          "congestion": true,
-          "header": {
-            "type": "none"
-          }
+        },
+        "mux": {
+          "enabled": true
         }
-      },
-      "mux": {
-        "enabled": true
       }
-    }
-	```
-	- 在出站即 `routing` 的配置中，加上对于 netflix 的规则：
-	```json
-    {
-      "type": "field",
-      "domains": [
-        "geosite:netflix",
-        "domain:netflix.com",
-        "domain:netflix.net",
-        "domain:nflximg.net",
-        "domain:nflxvideo.net",
-        "domain:nflxso.net",
-        "domain:nflxext.com"
-      ],
-      "outboundTag": "media-unlock"
-    }
-	```
+    ```
+
+  - 在出站即 `routing` 的配置中，加上对于 netflix 的规则：
+    ```json
+      {
+        "type": "field",
+        "domains": [
+          "geosite:netflix",
+          "domain:netflix.com",
+          "domain:netflix.net",
+          "domain:nflximg.net",
+          "domain:nflxvideo.net",
+          "domain:nflxso.net",
+          "domain:nflxext.com"
+        ],
+        "outboundTag": "media-unlock"
+      }
+    ```
 
 3. 登陆你能看非自制剧的小鸡
-	- 用[这位大佬提供的脚本，搞定繁琐的 warp 配置](https://github.com/fscarmen/warp) `wget -N https://raw.githubusercontent.com/fscarmen/warp/main/menu.sh && bash menu.sh`，选择安装 WARP WireProxy 的解决方案
-	- 完成后再使用[自动刷 ip 脚本](https://github.com/fscarmen/warp_unlock) `bash <(curl -sSL https://raw.githubusercontent.com/fscarmen/warp_unlock/main/unlock.sh)`，推荐 crontab 的方式
-	- 在 `outbounds` 中添加：
-	```json
-    {
-      "tag": "media-unlock",
-      "protocol": "socks",
-      "settings": {
-        "servers": [
-          {
-            "address": "127.0.0.1",
-            "port": 40000
-          }
+  - 用 [这位大佬提供的脚本，搞定繁琐的 warp 配置](https://github.com/fscarmen/warp) `wget -N https://raw.githubusercontent.com/fscarmen/warp/main/menu.sh && bash menu.sh`，选择安装 *WARP WireProxy* 的解决方案
+
+  - 完成后再使用 [自动刷 ip 脚本](https://github.com/fscarmen/warp_unlock) `bash <(curl -sSL https://raw.githubusercontent.com/fscarmen/warp_unlock/main/unlock.sh)`，推荐 *crontab* 的方式
+
+  - 在 `outbounds` 中添加：
+    ```json
+      {
+        "tag": "media-unlock",
+        "protocol": "socks",
+        "settings": {
+          "servers": [
+            {
+              "address": "127.0.0.1",
+              "port": 40000
+            }
+          ]
+        }
+      }
+    ```
+
+  - 在 `routing` 中，加上对于 netflix 的规则：
+    ```json
+      {
+        "type": "field",
+        "outboundTag": "media-unlock",
+        "domain": [
+          "geosite:netflix",
+          "domain:netflix.com",
+          "domain:netflix.net",
+          "domain:nflximg.net",
+          "domain:nflxvideo.net",
+          "domain:nflxso.net",
+          "domain:nflxext.com"
         ]
       }
-    }
-	```
-	- 在 `routing` 中，加上对于 netflix 的规则：
-	```json
-    {
-      "type": "field",
-      "outboundTag": "media-unlock",
-      "domain": [
-        "geosite:netflix",
-        "domain:netflix.com",
-        "domain:netflix.net",
-        "domain:nflximg.net",
-        "domain:nflxvideo.net",
-        "domain:nflxso.net",
-        "domain:nflxext.com"
-      ]
-    }
-	```
+    ```
 
-4. Google 一下 Netflix Breaking Bad，能看到页面，那恭喜你，解锁成功。
+4. Google 一下 [Netflix Breaking Bad](https://www.netflix.com/in/title/70143836)，能看小粉、老白和Mike 黄金铁三角的页面，那恭喜你，解锁成功。
 
 **核心的关键是：找到一台能用 warp 解锁看非自制的vps**
 
-而至于清晰度，通过香港小鸡提速(kcp + mux)，能同样做到高清观看。
+而至于清晰度，只要你的vps不是在南极，通过香港小鸡提速(bbr + kcp + mux)，能同样做到高清观看。
 
 ## License
 
