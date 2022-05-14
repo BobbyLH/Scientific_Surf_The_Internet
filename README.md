@@ -1,5 +1,24 @@
 # 科学上网指南
 
+## 导航
+- [声明](https://github.com/BobbyLH/Scientific_Surf_The_Internet#%E5%A3%B0%E6%98%8E)
+
+- [一、前期准备](https://github.com/BobbyLH/Scientific_Surf_The_Internet#%E4%B8%80%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87)
+
+- [二、云服务器选择](https://github.com/BobbyLH/Scientific_Surf_The_Internet#%E4%BA%8C%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%80%89%E6%8B%A9)
+
+- [三、服务 vs. 服务器](https://github.com/BobbyLH/Scientific_Surf_The_Internet#%E4%B8%89%E6%9C%8D%E5%8A%A1-vs-%E6%9C%8D%E5%8A%A1%E5%99%A8)
+
+- [四、一键安装](https://github.com/BobbyLH/Scientific_Surf_The_Internet#%E5%9B%9B%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85tls--ws--v2ray--nginx--bbr)
+
+- [五、路由器篇](https://github.com/BobbyLH/Scientific_Surf_The_Internet#%E4%BA%94%E8%B7%AF%E7%94%B1%E5%99%A8%E7%AF%87)
+
+- [六、其他客户端选择](https://github.com/BobbyLH/Scientific_Surf_The_Internet#%E5%85%AD%E5%85%B6%E4%BB%96%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%80%89%E6%8B%A9)
+
+- [七、最后的话](https://github.com/BobbyLH/Scientific_Surf_The_Internet#%E4%B8%83%E6%9C%80%E5%90%8E%E7%9A%84%E8%AF%9D)
+
+- [彩蛋 Netflix 解锁非自制剧](https://github.com/BobbyLH/Scientific_Surf_The_Internet#%E5%BD%A9%E8%9B%8B-netflix-%E8%A7%A3%E9%94%81%E9%9D%9E%E8%87%AA%E5%88%B6%E5%89%A7)
+
 ## 声明
 **本仓库仅用于测试和学习研究，禁止用于商业用途，作者不保证其合法性，准确性，完整性和有效性，请根据情况自行判断。**
 
