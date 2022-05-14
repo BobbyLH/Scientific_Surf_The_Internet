@@ -243,7 +243,7 @@ Breed 就好像我们电脑开机时启动的 UEFI、BIOS 等基本系统一样�
 
 	- 在 `outbounds` 添加：
 	```json
-		{
+    {
       "tag": "media-unlock",
       "protocol": "vmess",
       "settings": {
@@ -274,23 +274,23 @@ Breed 就好像我们电脑开机时启动的 UEFI、BIOS 等基本系统一样�
       "mux": {
         "enabled": true
       }
-		}
+    }
 	```
 	- 在出站即 `routing` 的配置中，加上对于 netflix 的规则：
 	```json
-	{
-		"type": "field",
-		"domains": [
-			"geosite:netflix",
-			"domain:netflix.com",
-			"domain:netflix.net",
-			"domain:nflximg.net",
-			"domain:nflxvideo.net",
-			"domain:nflxso.net",
-			"domain:nflxext.com"
-		],
-		"outboundTag": "media-unlock"
-	}
+    {
+      "type": "field",
+      "domains": [
+        "geosite:netflix",
+        "domain:netflix.com",
+        "domain:netflix.net",
+        "domain:nflximg.net",
+        "domain:nflxvideo.net",
+        "domain:nflxso.net",
+        "domain:nflxext.com"
+      ],
+      "outboundTag": "media-unlock"
+    }
 	```
 
 3. 登陆你能看非自制剧的小鸡
@@ -298,7 +298,7 @@ Breed 就好像我们电脑开机时启动的 UEFI、BIOS 等基本系统一样�
 	- 完成后再使用[自动刷 ip 脚本](https://github.com/fscarmen/warp_unlock) `bash <(curl -sSL https://raw.githubusercontent.com/fscarmen/warp_unlock/main/unlock.sh)`，推荐 crontab 的方式
 	- 在 `outbounds` 中添加：
 	```json
-		{
+    {
       "tag": "media-unlock",
       "protocol": "socks",
       "settings": {
@@ -313,19 +313,19 @@ Breed 就好像我们电脑开机时启动的 UEFI、BIOS 等基本系统一样�
 	```
 	- 在 `routing` 中，加上对于 netflix 的规则：
 	```json
-	{
-		"type": "field",
-		"outboundTag": "media-unlock",
-		"domain": [
-			"geosite:netflix",
-			"domain:netflix.com",
-			"domain:netflix.net",
-			"domain:nflximg.net",
-			"domain:nflxvideo.net",
-			"domain:nflxso.net",
-			"domain:nflxext.com"
-		]
-	}
+    {
+      "type": "field",
+      "outboundTag": "media-unlock",
+      "domain": [
+        "geosite:netflix",
+        "domain:netflix.com",
+        "domain:netflix.net",
+        "domain:nflximg.net",
+        "domain:nflxvideo.net",
+        "domain:nflxso.net",
+        "domain:nflxext.com"
+      ]
+    }
 	```
 
 4. Google 一下 Netflix Breaking Bad，能看到页面，那恭喜你，解锁成功。
