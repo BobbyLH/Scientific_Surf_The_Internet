@@ -102,27 +102,29 @@
 我们在这里重点关注以下几个服务的安装和配置：
 1. [nginx - 官网](https://nginx.org/en/docs/)
 
-2. [caddy - 官网](https://caddyserver.com/v1/docs)
+2. ~~[caddy - 官网](https://caddyserver.com/v1/docs)~~
 
 3. [v2ray - 官网](https://www.v2ray.com/)
 
-4. [ssr - github](https://github.com/shadowsocksrr/shadowsocksr)
+4. ~~[ssr - github](https://github.com/shadowsocksrr/shadowsocksr)~~
 
 ### 亲尝有效的服务配置
-1. **ssr + caddy + tls**：ssr 做反向代理，转发普通请求到 caddy 服务(自带tls)，对于其他请求，则进行正向代理；
+1. ~~**ssr + caddy + tls**：ssr 做反向代理，转发普通请求到 caddy 服务(自带tls)，对于其他请求，则进行正向代理；~~
 
 2. **v2ray + nginx + tls**：nginx 做反向代理，将自定义的某个路由转发到 v2ray 服务进行正向代理，需要手动配置tls。
 
 ### 服务器配置导航
-1. ssr + caddy + tls 模式
-    * [ssr 基本配置](/ssr.md) —— (兼具正、反向代理服务，搭配caddy)
+1. ~~ssr + caddy + tls 模式~~
+    * ~~[ssr 基本配置](/ssr.md) —— (兼具正、反向代理服务，搭配caddy)~~
 
-    * [caddy 基本配置](/caddy.md) —— (web服务，搭配ssr)
+    * ~~[caddy 基本配置](/caddy.md) —— (web服务，搭配ssr)~~
 
 2. v2ray + nginx + tls 模式
     * [v2ray 基本配置](/v2ray.md) —— (正向代理服务，搭配nginx)
 
     * [nginx 基本配置](/nginx.md) —— (反向代理服务，同时也是web服务，搭配v2ray)
+
+**Tips**: 按照目前的情况，大部分的 `ssr` 项目都年久失修，长期处于停滞维护更新的状态，而且特征往往十分明显，故而不太推荐该方案。除了 `v2ray + nginx + tls` 的模式之外，[Trojan](https://github.com/trojan-gfw/trojan) 同样也是一个优秀的实现方案。
 
 ### 防火墙之安全组规则
 如果你购买的是国内的云服务，一般来说都有安全限制，此时你需要手动设置你的 [安全组规则](https://baike.baidu.com/item/%E5%AE%89%E5%85%A8%E7%BB%84)，开放对应端口(包括TCP和UDP协议)出入站的权限，而后将规则绑定到云服务的实例上。
