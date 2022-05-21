@@ -124,7 +124,7 @@
 
     * [nginx 基本配置](/nginx.md) —— (反向代理服务，同时也是web服务，搭配v2ray)
 
-**Tips**: 按照目前的情况，大部分的 `ssr` 项目都年久失修，长期处于停滞维护更新的状态，而且特征往往十分明显，故而不太推荐该方案。除了 `v2ray + nginx + tls` 的模式之外，[Trojan](https://github.com/trojan-gfw/trojan) 同样也是一个优秀的实现方案。
+**Tips**: 按照目前的情况，大部分基于 `ssr` 的衍生项目都年久失修，长期处于停滞维护更新的状态，而且其特征往往十分明显，故而不太推荐该方案。除了 `v2ray + nginx + tls` 的模式之外，[Trojan](https://github.com/trojan-gfw/trojan) 同样也是一个优秀的实现方案。
 
 ### 防火墙之安全组规则
 如果你购买的是国内的云服务，一般来说都有安全限制，此时你需要手动设置你的 [安全组规则](https://baike.baidu.com/item/%E5%AE%89%E5%85%A8%E7%BB%84)，开放对应端口(包括TCP和UDP协议)出入站的权限，而后将规则绑定到云服务的实例上。
