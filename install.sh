@@ -84,7 +84,7 @@ echo "{
         {
           \"id\": \"$uuid\",
           \"level\": 0,
-          \"alterId\": 64
+          \"alterId\": 0
         }
       ]
     },
