@@ -141,6 +141,7 @@ WantedBy=multi-user.target" > /etc/systemd/system/v2ray.service &&\
 systemctl restart v2ray &&\
 apt-get install -y socat &&\
 curl  https://get.acme.sh | sh &&\
+~/.acme.sh/acme.sh --upgrade --auto-upgrade &&\
 ~/.acme.sh/acme.sh --issue -d $domain --server letsencrypt --days 180 --standalone -k ec-256 &&\
 ~/.acme.sh/acme.sh --installcert -d $domain --fullchainpath /usr/local/etc/v2ray/v2ray.crt --keypath /usr/local/etc/v2ray/v2ray.key --ecc &&\
 apt-get install -y nginx &&\
