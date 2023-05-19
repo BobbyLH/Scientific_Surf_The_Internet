@@ -20,7 +20,14 @@ then
   exit 0
 fi
 
+curl https://pkg.cloudflareclient.com/pubkey.gpg | gpg --yes --dearmor --output /usr/share/keyrings/cloudflare-warp-archive-keyring.gpg &&\
+echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/cloudflare-warp-archive-keyring.gpg] https://pkg.cloudflareclient.com/ bullseye main' | tee /etc/apt/sources.list.d/cloudflare-client.list &&\
 apt-get update &&\
+apt -y install cloudflare-warp &&\
+warp-cli register &&\
+warp-cli set-mode proxy &&\
+warp-cli connect &&\
+warp-cli enable-always-on &&\
 curl -O https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh &&\
 bash install-release.sh &&\
 systemctl enable v2ray &&\
@@ -98,8 +105,15 @@ echo "{
   },
 \"outbounds\": [
     {
-      \"protocol\": \"freedom\",
-      \"settings\": {}
+      \"protocol\": \"socks\",
+      \"settings\": {
+        \"servers\": [
+          {
+            \"address\": \"127.0.0.1\",
+            \"port\": 40000
+          }
+        ]
+      }
     },
     {
       \"protocol\": \"blackhole\",
