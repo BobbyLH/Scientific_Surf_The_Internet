@@ -13,6 +13,7 @@ fi
 
 read -p "请输入UUID: " uuid
 read -p "请输入域名: " domain
+read -r -p "启用Cloudflare Warp [Y/n]" warp
 
 if [ "$uuid" == "" -o "$domain" == "" ]
 then
@@ -20,20 +21,27 @@ then
   exit 0
 fi
 
-curl https://pkg.cloudflareclient.com/pubkey.gpg | gpg --yes --dearmor --output /usr/share/keyrings/cloudflare-warp-archive-keyring.gpg &&\
-echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/cloudflare-warp-archive-keyring.gpg] https://pkg.cloudflareclient.com/ bullseye main' | tee /etc/apt/sources.list.d/cloudflare-client.list &&\
-apt-get update &&\
-apt -y install cloudflare-warp &&\
-warp-cli register &&\
-warp-cli set-mode proxy &&\
-warp-cli connect &&\
-warp-cli enable-always-on &&\
+if [ "$warp" = "y" -o "$warp" = "Y" ]
+then
+  echo "启用 Cloudflare Warp！" &&\
+  curl https://pkg.cloudflareclient.com/pubkey.gpg | gpg --yes --dearmor --output /usr/share/keyrings/cloudflare-warp-archive-keyring.gpg &&\
+  echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/cloudflare-warp-archive-keyring.gpg] https://pkg.cloudflareclient.com/ bullseye main' | tee /etc/apt/sources.list.d/cloudflare-client.list &&\
+  apt-get update &&\
+  apt -y install cloudflare-warp &&\
+  warp-cli register &&\
+  warp-cli set-mode proxy &&\
+  warp-cli connect &&\
+  warp-cli enable-always-on &&\
+else
+  apt-get update &&\
+fi
+
 curl -O https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh &&\
 bash install-release.sh &&\
 systemctl enable v2ray &&\
 systemctl start v2ray &&\
 sed -i 'd' /usr/local/etc/v2ray/config.json &&\
-echo "{
+([ "$warp" = "y" -o "$warp" = "Y" ] && echo "{
   \"log\" : {
     \"error\": \"/var/log/v2ray/error.log\",
     \"loglevel\": \"warning\"
@@ -133,7 +141,100 @@ echo "{
       }
     ]
   }
-}" > /usr/local/etc/v2ray/config.json &&\
+}" || echo "{
+  \"log\" : {
+    \"error\": \"/var/log/v2ray/error.log\",
+    \"loglevel\": \"warning\"
+  },
+  \"policy\": {
+    \"levels\": {
+      \"0\": {
+        \"handshake\": 8,
+        \"connIdle\": 600,
+        \"uplinkOnly\": 4,
+        \"downlinkOnly\": 10,
+        \"statsUserUplink\": false,
+        \"statsUserDownlink\": false,
+        \"bufferSize\": 10240
+      },
+      \"1\": {
+        \"handshake\": 4,
+        \"connIdle\": 300,
+        \"uplinkOnly\": 2,
+        \"downlinkOnly\": 5,
+        \"statsUserUplink\": false,
+        \"statsUserDownlink\": false,
+        \"bufferSize\": 2048
+      },
+      \"2\": {
+        \"handshake\": 4,
+        \"connIdle\": 120,
+        \"uplinkOnly\": 1,
+        \"downlinkOnly\": 3,
+        \"statsUserUplink\": false,
+        \"statsUserDownlink\": false,
+        \"bufferSize\": 1024
+      },
+      \"3\": {
+        \"handshake\": 4,
+        \"connIdle\": 60,
+        \"uplinkOnly\": 1,
+        \"downlinkOnly\": 3,
+        \"statsUserUplink\": false,
+        \"statsUserDownlink\": false,
+        \"bufferSize\": 512
+      }
+    },
+    \"system\": {
+      \"statsInboundUplink\": false,
+      \"statsInboundDownlink\": false
+    }
+  },
+  \"inbound\": {
+    \"port\": 10001,
+    \"listen\": \"127.0.0.1\",
+    \"protocol\": \"vmess\",
+    \"settings\": {
+      \"clients\": [
+        {
+          \"id\": \"$uuid\",
+          \"level\": 0,
+          \"alterId\": 0
+        }
+      ]
+    },
+    \"streamSettings\": {
+      \"network\": \"ws\",
+      \"security\": \"auto\",
+      \"wsSettings\": {
+        \"path\": \"/ray\"
+      }
+    }
+  },
+\"outbounds\": [
+    {
+      \"protocol\": \"freedom\",
+      \"settings\": {}
+    },
+    {
+      \"protocol\": \"blackhole\",
+      \"settings\": {},
+      \"tag\": \"block\"
+    }
+  ],
+  \"routing\": {
+    \"domainStrategy\": \"AsIs\",
+    \"rules\": [
+      {
+        \"type\": \"field\",
+        \"outboundTag\": \"block\",
+        \"protocol\": [
+          \"bittorrent\"
+        ]
+      }
+    ]
+  }
+}") > /usr/local/etc/v2ray/config.json &&\
 systemctl restart v2ray &&\
 apt-get install -y socat &&\
 curl  https://get.acme.sh | sh &&\
