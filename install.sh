@@ -31,9 +31,9 @@ then
   warp-cli register &&\
   warp-cli set-mode proxy &&\
   warp-cli connect &&\
-  warp-cli enable-always-on &&\
+  warp-cli enable-always-on
 else
-  apt-get update &&\
+  apt-get update
 fi
 
 curl -O https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh &&\
