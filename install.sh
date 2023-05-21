@@ -365,7 +365,7 @@ wget -P /root/.oh-my-zsh/plugins/incr http://mimosa-pudica.net/src/incr-0.2.zsh
 
 if [ "$warp" == "y" -o "$warp" == "Y" ]
 then
-  crontab -l > conf && echo "0 * * * * /bin/systemctl restart warp-svc" >> conf && crontab conf && rm conf &&\
+  crontab -l > conf && echo "0,30 * * * * /bin/systemctl restart warp-svc" >> conf && crontab conf && rm conf &&\
   systemctl restart cron
 fi
 
