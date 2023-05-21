@@ -12,16 +12,30 @@ then
 fi
 
 read -p "请输入UUID: " uuid
+while (("$uuid" == ""))
+do
+  echo "UUID是必填项！"
+  read -p "请输入UUID: " uuid
+done
+
 read -p "请输入域名: " domain
-read -r -p "启用Cloudflare Warp [Y/n]" warp
 
-if [ "$uuid" == "" -o "$domain" == "" ]
-then
-  echo "UUID和域名是必填项！"
-  exit 0
-fi
+while (("$domain" == ""))
+do
+  echo "域名是必填项！"
+  read -p "请输入域名: " domain
+done
 
-if [ "$warp" = "y" -o "$warp" = "Y" ]
+read -p "启用Cloudflare Warp [Y/n]" warp
+
+while (("$warp" != "y" -a "$warp" != "Y" -a "$warp" != "n" -a "$warp" != "N"))
+do
+  echo "请输入 Y(y) 或 N(n)！"
+  read -p "启用Cloudflare Warp [Y/n]" warp
+done
+
+
+if [ "$warp" == "y" -o "$warp" == "Y" ]
 then
   echo "启用 Cloudflare Warp！" &&\
   curl https://pkg.cloudflareclient.com/pubkey.gpg | gpg --yes --dearmor --output /usr/share/keyrings/cloudflare-warp-archive-keyring.gpg &&\
@@ -41,7 +55,7 @@ bash install-release.sh &&\
 systemctl enable v2ray &&\
 systemctl start v2ray &&\
 sed -i 'd' /usr/local/etc/v2ray/config.json &&\
-([ "$warp" = "y" -o "$warp" = "Y" ] && echo "{
+([ "$warp" == "y" -o "$warp" == "Y" ] && echo "{
   \"log\" : {
     \"error\": \"/var/log/v2ray/error.log\",
     \"loglevel\": \"warning\"
@@ -348,5 +362,11 @@ sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="ys"/' /root/.zshrc &&\
 sed -i '$a plugins=(git incr)' /root/.zshrc &&\
 mkdir /root/.oh-my-zsh/plugins/incr &&\
 wget -P /root/.oh-my-zsh/plugins/incr http://mimosa-pudica.net/src/incr-0.2.zsh
+
+if [ "$warp" == "y" -o "$warp" == "Y" ]
+then
+  echo "0 * * * * /bin/systemctl restart warp-svc" >>  /var/spool/cron/root &&\
+  systemctl restart cron
+fi
 
 exit 0
