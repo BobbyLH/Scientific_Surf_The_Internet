@@ -12,7 +12,7 @@ then
 fi
 
 read -p "请输入UUID: " uuid
-while ("$uuid" == "")
+while [ "$uuid" == "" ]
 do
   echo "UUID是必填项！"
   read -p "请输入UUID: " uuid
@@ -20,7 +20,7 @@ done
 
 read -p "请输入域名: " domain
 
-while ("$domain" == "")
+while [ "$domain" == "" ]
 do
   echo "域名是必填项！"
   read -p "请输入域名: " domain
@@ -28,7 +28,7 @@ done
 
 read -p "启用Cloudflare Warp [Y/n]" warp
 
-while ("$warp" != "y" -a "$warp" != "Y" -a "$warp" != "n" -a "$warp" != "N")
+while [ "$warp" != "y" -a "$warp" != "Y" -a "$warp" != "n" -a "$warp" != "N" ]
 do
   echo "请输入 Y(y) 或 N(n)！"
   read -p "启用Cloudflare Warp [Y/n]" warp
