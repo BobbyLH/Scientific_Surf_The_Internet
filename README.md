@@ -153,6 +153,13 @@ chmod 755 /tmp/install.sh &&\
 rm /tmp/install.sh
 ```
 
+如果使用的是 ipv6 only 的服务，那么需要先配置 `DNS-NAT64`:
+```sh
+cp /etc/resolv.conf /etc/resolv.conf.bak &&\
+echo -e "nameserver 2a01:4f8:c2c:123f::1\nnameserver 2a00:1098:2c::1\nnameserver 2a01:4f9:c010:3f02::1" > /etc/resolv.conf &&\
+rm /etc/resolv.conf &&\
+mv /etc/resolv.conf.bak /etc/resolv.conf
+```
 ---
 
 ## 五、路由器篇
