@@ -13,62 +13,45 @@ fi
 
 # uuid
 read -p "请输入UUID: " uuid
-while [ "$uuid" == "" ]
+
+while [ -z "$uuid" ]
 do
   echo "UUID是必填项！"
   read -p "请输入UUID: " uuid
 done
 
+# domain
 read -p "请输入域名: " domain
 
-# domain
-while [ "$domain" == "" ]
+while [ -z "$domain" ]
 do
   echo "域名是必填项！"
   read -p "请输入域名: " domain
 done
 
+# ipv6
 read -p "是否 ipv6-only 服务 [y/N]" ipv6
 
-# ipv6
-if [ -z "$ipv6" ]
+if [ -z "$ipv6" ] || [ "$ipv6" != "y" -a "$ipv6" != "Y" ]
 then
-  ipv6 = N
+  ipv6="N"
 fi
-
-while [ "$ipv6" != "y" -a "$ipv6" != "Y" -a "$ipv6" != "n" -a "$ipv6" != "N" ]
-do
-  echo "请输入 Y(y) 或 N(n)！"
-  read -p "是否 ipv6-only 服务 [y/N]" ipv6
-  if [ -z "$ipv6" ]
-  then
-    ipv6 = N
-  fi
-done
 
 # Cloudflare Warp
-if ["$ipv6" != "y" -a "$ipv6" != "Y"]
+read -p "启用Cloudflare Warp [Y/n] (ipv6-only 推荐开启)" warp
+if [ -z "$warp" ] || [ "$warp" != "n" -a "$warp" != "N" ]
 then
-  read -p "启用Cloudflare Warp [Y/n]" warp
-
-  if [ -z "$warp" ]
-  then
-    warp = Y
-  fi
-
-  while [ "$warp" != "y" -a "$warp" != "Y" -a "$warp" != "n" -a "$warp" != "N" ]
-  do
-    echo "请输入 Y(y) 或 N(n)！"
-    read -p "启用Cloudflare Warp [Y/n]" warp
-    if [ -z "$warp" ]
-    then
-      warp = Y
-    fi
-  done
-else
-  warp = Y
+  warp="Y"
 fi
 
+# zsh
+read -p "是否安装 zsh [Y/n]" zsh
+if [ -z "$zsh" ] || [ "$zsh" != "n" -a "$zsh" != "N" ]
+then
+  zsh="Y"
+fi
+
+# install warp
 if [ "$warp" == "y" -o "$warp" == "Y" ]
 then
   echo "启用 Cloudflare Warp！" &&\
@@ -76,10 +59,9 @@ then
   echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/cloudflare-warp-archive-keyring.gpg] https://pkg.cloudflareclient.com/ bullseye main' | tee /etc/apt/sources.list.d/cloudflare-client.list &&\
   apt-get update &&\
   apt -y install cloudflare-warp &&\
-  warp-cli register &&\
-  warp-cli set-mode proxy &&\
-  warp-cli connect &&\
-  warp-cli enable-always-on
+  warp-cli registration new &&\
+  warp-cli mode proxy &&\
+  warp-cli connect
 else
   apt-get update
 fi
@@ -286,8 +268,15 @@ sed -i 'd' /usr/local/etc/v2ray/config.json &&\
 systemctl restart v2ray &&\
 apt-get install -y socat &&\
 curl  https://get.acme.sh | sh &&\
-~/.acme.sh/acme.sh --upgrade --auto-upgrade &&\
-[ "$ipv6" == "y" -o "$ipv6" == "Y" ] && { ~/.acme.sh/acme.sh --issue -d $domain --server letsencrypt --days 180 --standalone -k ec-256 --listen-v6 } || { ~/.acme.sh/acme.sh --issue -d $domain --server letsencrypt --days 180 --standalone -k ec-256 } &&\
+~/.acme.sh/acme.sh --upgrade --auto-upgrade
+
+if [ "$ipv6" == "y" -o "$ipv6" == "Y" ]
+then
+  ~/.acme.sh/acme.sh --issue -d $domain --server letsencrypt --days 180 --standalone -k ec-256 --listen-v6
+else
+  ~/.acme.sh/acme.sh --issue -d $domain --server letsencrypt --days 180 --standalone -k ec-256
+fi
+
 ~/.acme.sh/acme.sh --installcert -d $domain --fullchainpath /usr/local/etc/v2ray/v2ray.crt --keypath /usr/local/etc/v2ray/v2ray.key --ecc &&\
 apt-get install -y nginx &&\
 nginx -s stop &&\
@@ -478,16 +467,20 @@ http {
 nginx -c /etc/nginx/nginx.conf &&\
 wget --no-check-certificate -O /opt/bbr.sh https://github.com/teddysun/across/raw/master/bbr.sh &&\
 chmod 755 /opt/bbr.sh &&\
-/opt/bbr.sh &&\
-apt-get install -y git &&\
-apt-get install -y zsh &&\
-git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh &&\
-cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc &&\
-chsh -s /bin/zsh &&\
-sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="ys"/' /root/.zshrc &&\
-sed -i '$a plugins=(git incr)' /root/.zshrc &&\
-mkdir /root/.oh-my-zsh/plugins/incr &&\
-wget -P /root/.oh-my-zsh/plugins/incr http://mimosa-pudica.net/src/incr-0.2.zsh
+/opt/bbr.sh
+
+if [ "$zsh" == "y" -o "$zsh" == "Y" ]
+then
+  apt-get install -y git &&\
+  apt-get install -y zsh &&\
+  git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh &&\
+  cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc &&\
+  chsh -s /bin/zsh &&\
+  sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="ys"/' /root/.zshrc &&\
+  sed -i '$a plugins=(git incr)' /root/.zshrc &&\
+  mkdir /root/.oh-my-zsh/plugins/incr &&\
+  wget -P /root/.oh-my-zsh/plugins/incr http://mimosa-pudica.net/src/incr-0.2.zsh
+fi
 
 if [ "$warp" == "y" -o "$warp" == "Y" ]
 then
