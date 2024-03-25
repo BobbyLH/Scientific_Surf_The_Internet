@@ -11,6 +11,7 @@ then
   exit 0
 fi
 
+# uuid
 read -p "请输入UUID: " uuid
 while [ "$uuid" == "" ]
 do
@@ -20,20 +21,53 @@ done
 
 read -p "请输入域名: " domain
 
+# domain
 while [ "$domain" == "" ]
 do
   echo "域名是必填项！"
   read -p "请输入域名: " domain
 done
 
-read -p "启用Cloudflare Warp [Y/n]" warp
+read -p "是否 ipv6-only 服务 [y/N]" ipv6
 
-while [ "$warp" != "y" -a "$warp" != "Y" -a "$warp" != "n" -a "$warp" != "N" ]
+# ipv6
+if [ -z "$ipv6" ]
+then
+  ipv6 = N
+fi
+
+while [ "$ipv6" != "y" -a "$ipv6" != "Y" -a "$ipv6" != "n" -a "$ipv6" != "N" ]
 do
   echo "请输入 Y(y) 或 N(n)！"
-  read -p "启用Cloudflare Warp [Y/n]" warp
+  read -p "是否 ipv6-only 服务 [y/N]" ipv6
+  if [ -z "$ipv6" ]
+  then
+    ipv6 = N
+  fi
 done
 
+# Cloudflare Warp
+if ["$ipv6" != "y" -a "$ipv6" != "Y"]
+then
+  read -p "启用Cloudflare Warp [Y/n]" warp
+
+  if [ -z "$warp" ]
+  then
+    warp = Y
+  fi
+
+  while [ "$warp" != "y" -a "$warp" != "Y" -a "$warp" != "n" -a "$warp" != "N" ]
+  do
+    echo "请输入 Y(y) 或 N(n)！"
+    read -p "启用Cloudflare Warp [Y/n]" warp
+    if [ -z "$warp" ]
+    then
+      warp = Y
+    fi
+  done
+else
+  warp = Y
+fi
 
 if [ "$warp" == "y" -o "$warp" == "Y" ]
 then
@@ -253,12 +287,104 @@ systemctl restart v2ray &&\
 apt-get install -y socat &&\
 curl  https://get.acme.sh | sh &&\
 ~/.acme.sh/acme.sh --upgrade --auto-upgrade &&\
-~/.acme.sh/acme.sh --issue -d $domain --server letsencrypt --days 180 --standalone -k ec-256 &&\
+[ "$ipv6" == "y" -o "$ipv6" == "Y" ] && { ~/.acme.sh/acme.sh --issue -d $domain --server letsencrypt --days 180 --standalone -k ec-256 --listen-v6 } || { ~/.acme.sh/acme.sh --issue -d $domain --server letsencrypt --days 180 --standalone -k ec-256 } &&\
 ~/.acme.sh/acme.sh --installcert -d $domain --fullchainpath /usr/local/etc/v2ray/v2ray.crt --keypath /usr/local/etc/v2ray/v2ray.key --ecc &&\
 apt-get install -y nginx &&\
 nginx -s stop &&\
 sed -i 'd' /etc/nginx/nginx.conf &&\
-echo "user www-data;
+([ "$ipv6" == "y" -o "$ipv6" == "Y" ] && echo "user www-data;
+worker_processes auto;
+pid /run/nginx.pid;
+include /etc/nginx/modules-enabled/*.conf;
+
+events {
+  worker_connections 768;
+  # multi_accept on;
+}
+
+http {
+  server {
+    listen 80;
+    listen [::]:80 ipv6only=on;
+    server_name  $domain;
+
+    location /favicon.ico {
+      root /srv/blog;
+    }
+  }
+  server {
+      listen 443 ssl;
+      listen [::]:443 ssl ipv6only=on;
+      ssl_certificate       /usr/local/etc/v2ray/v2ray.crt;
+      ssl_certificate_key   /usr/local/etc/v2ray/v2ray.key;
+      ssl_protocols         TLSv1 TLSv1.1 TLSv1.2;
+      ssl_ciphers           HIGH:!aNULL:!MD5;
+      server_name           $domain;
+      location /ray {
+        proxy_redirect off;
+        proxy_pass http://127.0.0.1:10001;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade \"WebSocket\";
+        proxy_set_header Connection \"Upgrade\";
+        proxy_set_header Host \$http_host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+      }
+      location /favicon.ico {
+        root /srv/blog;
+      }
+  }
+  ##
+  # Basic Settings
+  ##
+
+  sendfile on;
+  tcp_nopush on;
+  tcp_nodelay on;
+  keepalive_timeout 65;
+  types_hash_max_size 2048;
+  # server_tokens off;
+
+  # server_names_hash_bucket_size 64;
+  # server_name_in_redirect off;
+
+  include /etc/nginx/mime.types;
+  default_type application/octet-stream;
+
+  ##
+  # SSL Settings
+  ##
+
+  ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3; # Dropping SSLv3, ref: POODLE
+  ssl_prefer_server_ciphers on;
+
+  ##
+  # Logging Settings
+  ##
+
+  access_log /var/log/nginx/access.log;
+  error_log /var/log/nginx/error.log;
+
+  ##
+  # Gzip Settings
+  ##
+
+  gzip on;
+
+  # gzip_vary on;
+  # gzip_proxied any;
+  # gzip_comp_level 6;
+  # gzip_buffers 16 8k;
+  # gzip_http_version 1.1;
+  # gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
+
+  ##
+  # Virtual Host Configs
+  ##
+
+  include /etc/nginx/conf.d/*.conf;
+  include /etc/nginx/sites-enabled/*;
+}" || echo "user www-data;
 worker_processes auto;
 pid /run/nginx.pid;
 include /etc/nginx/modules-enabled/*.conf;
@@ -348,7 +474,7 @@ http {
 
   include /etc/nginx/conf.d/*.conf;
   include /etc/nginx/sites-enabled/*;
-}" > /etc/nginx/nginx.conf &&\
+}") > /etc/nginx/nginx.conf &&\
 nginx -c /etc/nginx/nginx.conf &&\
 wget --no-check-certificate -O /opt/bbr.sh https://github.com/teddysun/across/raw/master/bbr.sh &&\
 chmod 755 /opt/bbr.sh &&\
